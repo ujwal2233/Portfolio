@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -118,8 +119,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'main/static'),
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
@@ -134,3 +140,6 @@ EMAIL_HOST_USER = 'ujwalpatil2233@gmail.com'  # Replace with your Gmail
 EMAIL_HOST_PASSWORD = 'your-app-password'  # Replace with your Gmail App Password
 DEFAULT_FROM_EMAIL = 'Portfolio Contact Form <ujwalpatil2233@gmail.com>'
 CONTACT_EMAIL = 'ujwalpatil2233@gmail.com'  # Your email to receive messages
+
+# Command to run on deployment
+# RUN_DEPLOYMENT_COMMANDS = "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py populate_portfolio"
