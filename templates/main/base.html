@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ujwal Patil - Software Developer{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea'/><stop offset='100%25' style='stop-color:%23764ba2'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='65' font-size='45' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>UP</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="{% url 'index' %}" class="logo-link">
+                    <span class="logo-text">Ujwal Patil</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="{% url 'index' %}" class="nav-link">Home</a>
+                <a href="{% url 'about' %}" class="nav-link">About</a>
+                <a href="{% url 'skills' %}" class="nav-link">Skills</a>
+                <a href="{% url 'projects' %}" class="nav-link">Projects</a>
+                <a href="{% url 'experience' %}" class="nav-link">Experience</a>
+                <a href="{% url 'achievements' %}" class="nav-link">Achievements</a>
+                <a href="{% url 'resume' %}" class="nav-link">Resume</a>
+                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="footer-icon">UP</span>
+                    <span>Ujwal Patil</span>
+                </div>
+                <div class="footer-links">
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'skills' %}">Skills</a>
+                    <a href="{% url 'projects' %}">Projects</a>
+                    <a href="{% url 'experience' %}">Experience</a>
+                    <a href="{% url 'achievements' %}">Achievements</a>
+                    <a href="{% url 'resume' %}">Resume</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/ujwal2233" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/ujwalpatil2233/" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://x.com/UjwalPa70580501" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ujwal Patil. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

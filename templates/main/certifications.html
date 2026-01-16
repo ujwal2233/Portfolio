@@ -1,0 +1,144 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Certifications - Software Developer Portfolio{% endblock %}
+
+{% block content %}
+<!-- Certifications Section -->
+<section class="section certifications">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-subtitle">Professional certifications and achievements</p>
+        </div>
+        {% if certifications %}
+        <div class="certifications-grid">
+            {% for cert in certifications %}
+            <div class="certification-card">
+                <div class="certification-icon">
+                    {% if 'Java' in cert.title %}
+                        <i class="fab fa-java"></i>
+                    {% elif 'Python' in cert.title %}
+                        <i class="fab fa-python"></i>
+                    {% elif 'C++' in cert.title %}
+                        <i class="fas fa-code"></i>
+                    {% elif 'Programming in C' in cert.title %}
+                        <i class="fas fa-terminal"></i>
+                    {% elif 'German' in cert.title %}
+                        <i class="fas fa-language"></i>
+                    {% elif 'Web' in cert.title or 'Full Stack' in cert.title %}
+                        <i class="fas fa-globe"></i>
+                    {% elif 'Young Professional' in cert.title or 'TCS' in cert.issuer %}
+                        <i class="fas fa-user-tie"></i>
+                    {% elif 'NPTEL' in cert.issuer %}
+                        <i class="fas fa-graduation-cap"></i>
+                    {% elif 'Spoken Tutorial' in cert.issuer %}
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    {% else %}
+                        <i class="fas fa-certificate"></i>
+                    {% endif %}
+                </div>
+                <div class="certification-content">
+                    <h3>{{ cert.title }}</h3>
+                    <p class="certification-issuer">{{ cert.issuer }}</p>
+                    <p class="certification-date">Issued: {{ cert.issue_date|date:"Y" }}</p>
+                    {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" target="_blank" class="certification-badge">View Credential</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="certifications-grid">
+            <div class="certification-card">
+                <div class="certification-icon">
+                    <i class="fab fa-aws"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Programming in Java</h3>
+                    <p class="certification-issuer">NPTEL</p>
+                    <p class="certification-date">Issued: 2024</p>
+                    <span class="certification-badge">Professional</span>
+                </div>
+            </div>
+            <div class="certification-card">
+                <div class="certification-icon">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>German I</h3>
+                    <p class="certification-issuer">NPTEL</p>
+                    <p class="certification-date">Issued: 2025</p>
+                    <span class="certification-badge">Professional</span>
+                </div>
+            </div>
+            <div class="certification-card">
+                <div class="certification-icon">
+                    <i class="fab fa-docker"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Full Stack Web Development</h3>
+                    <p class="certification-issuer">Udemy</p>
+                    <p class="certification-date">Issued: 2024</p>
+                    <span class="certification-badge">Professional</span>
+                </div>
+            </div>
+            <div class="certification-card">
+                <div class="certification-icon">
+                    <i class="fab fa-java"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Python Foundation</h3>
+                    <p class="certification-issuer">Infosys Springboard</p>
+                    <p class="certification-date">Issued: 2022</p>
+                    <span class="certification-badge">Professional</span>
+                </div>
+            </div>
+            <div class="certification-card">
+                <div class="certification-icon">
+                    <i class="fab fa-python"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Young Professional</h3>
+                    <p class="certification-issuer">TCS iON</p>
+                    <p class="certification-date">Issued: 2023</p>
+                    <span class="certification-badge">Entry</span>
+                </div>
+            </div>
+            
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animate certifications on scroll
+function animateCertifications() {
+    const certificationCards = document.querySelectorAll('.certification-card');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    certificationCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px) scale(0.95)';
+        card.style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    animateCertifications();
+});
+</script>
+{% endblock %}

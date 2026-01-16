@@ -1,0 +1,291 @@
+{% extends 'main/base.html' %}
+
+{% block title %}My Projects - Software Developer Portfolio{% endblock %}
+
+{% block content %}
+<!-- Projects Section -->
+<section class="section projects-page">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-subtitle">Showcasing my technical expertise and creativity</p>
+        </div>
+        {% if projects %}
+        <div class="projects-grid-new">
+            {% for project in projects %}
+            <div class="project-card-new">
+                <div class="project-icon-wrapper">
+                    <div class="project-icon-bg"></div>
+                    <div class="project-icon">
+                        {% if 'Spring' in project.technologies or 'Java' in project.technologies %}
+                            <i class="fab fa-java"></i>
+                        {% elif 'Django' in project.technologies or 'Python' in project.technologies or 'Flask' in project.technologies %}
+                            <i class="fab fa-python"></i>
+                        {% elif 'React' in project.technologies or 'JavaScript' in project.technologies or 'Node' in project.technologies %}
+                            <i class="fab fa-react"></i>
+                        {% elif 'CNN' in project.technologies or 'TensorFlow' in project.technologies or 'ML' in project.technologies or 'NLP' in project.technologies %}
+                            <i class="fas fa-brain"></i>
+                        {% elif 'Android' in project.technologies %}
+                            <i class="fab fa-android"></i>
+                        {% elif 'Arduino' in project.technologies %}
+                            <i class="fas fa-microchip"></i>
+                        {% elif 'Hospital' in project.title or 'Health' in project.title %}
+                            <i class="fas fa-hospital"></i>
+                        {% elif 'Water' in project.title or 'Jal' in project.title %}
+                            <i class="fas fa-water"></i>
+                        {% elif 'Solar' in project.title %}
+                            <i class="fas fa-solar-panel"></i>
+                        {% elif 'Timetable' in project.title or 'Schedule' in project.title %}
+                            <i class="fas fa-calendar-alt"></i>
+                        {% elif 'Tweet' in project.title or 'Blog' in project.title %}
+                            <i class="fas fa-comments"></i>
+                        {% elif 'Music' in project.title %}
+                            <i class="fas fa-music"></i>
+                        {% elif 'Game' in project.title or 'Tic' in project.title or 'Rock' in project.title %}
+                            <i class="fas fa-gamepad"></i>
+                        {% elif 'Complaint' in project.title %}
+                            <i class="fas fa-headset"></i>
+                        {% elif 'Pneumonia' in project.title or 'Detection' in project.title %}
+                            <i class="fas fa-lungs"></i>
+                        {% elif 'Journal' in project.title or 'Secure' in project.title %}
+                            <i class="fas fa-shield-alt"></i>
+                        {% else %}
+                            <i class="fas fa-code"></i>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="project-content-new">
+                    <h3>{{ project.title }}</h3>
+                    <p class="project-desc">{{ project.short_description }}</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag-full">{{ project.technologies }}</span>
+                    </div>
+                    <div class="project-footer">
+                        <span class="project-date">
+                            <i class="fas fa-calendar"></i> {{ project.date_completed|date:"M Y" }}
+                        </span>
+                        <div class="project-links-new">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank" class="project-link" title="View Code">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank" class="project-link" title="Live Demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">No projects available yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<style>
+.projects-page {
+    padding: 120px 0 80px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+
+.projects-grid-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card-new {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.project-card-new:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.project-icon-wrapper {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.project-icon-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.project-card-new:nth-child(2n) .project-icon-bg {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.project-card-new:nth-child(3n) .project-icon-bg {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.project-card-new:nth-child(4n) .project-icon-bg {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.project-card-new:nth-child(5n) .project-icon-bg {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.project-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s ease;
+}
+
+.project-card-new:hover .project-icon {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+}
+
+.project-content-new {
+    padding: 25px;
+}
+
+.project-content-new h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.project-desc {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tech-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.tech-tag-full {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #f0f2f5;
+}
+
+.project-date {
+    color: #95a5a6;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.project-links-new {
+    display: flex;
+    gap: 10px;
+}
+
+.project-link {
+    width: 38px;
+    height: 38px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2c3e50;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .projects-grid-new {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-page {
+        padding: 100px 0 60px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.project-card-new');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+});
+</script>
+{% endblock %}

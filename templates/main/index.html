@@ -1,0 +1,455 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Home - Ujwal Rajendra Patil | Software Developer{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="hero-bg">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 0.8s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.8s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 2.8s;"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">
+                <span class="greeting animate-fade-up">Hi, I'm</span>
+                <span class="name animate-fade-up delay-1">Ujwal Rajendra Patil</span>
+            </h1>
+            <p class="hero-tagline animate-fade-up delay-2">
+                <span class="typewriter">I turn ideas into working systems.</span>
+            </p>
+            <div class="hero-roles animate-fade-up delay-3">
+                <span class="role-badge role-developer">Software Developer</span>
+                <span class="role-divider">|</span>
+                <span class="role-badge role-fullstack">Full Stack</span>
+            </div>
+            <p class="hero-description animate-fade-up delay-4">From backend APIs to full-stack platforms and AI-powered tools, I build software that's scalable, maintainable, and ready for production — not just demos.</p>
+            <div class="hero-buttons animate-fade-up delay-5">
+                <a href="{% url 'projects' %}" class="btn btn-primary">View My Work</a>
+                <a href="{% url 'contact' %}" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <!-- Animated Tech Stack Sphere -->
+            <div class="tech-sphere">
+                <div class="sphere-glow"></div>
+                <div class="orbit orbit-1">
+                    <div class="orbit-icon" style="--delay: 0;"><i class="fab fa-java"></i></div>
+                    <div class="orbit-icon" style="--delay: 1;"><i class="fab fa-python"></i></div>
+                    <div class="orbit-icon" style="--delay: 2;"><i class="fab fa-js-square"></i></div>
+                </div>
+                <div class="orbit orbit-2">
+                    <div class="orbit-icon" style="--delay: 0.5;"><i class="fab fa-react"></i></div>
+                    <div class="orbit-icon" style="--delay: 1.5;"><i class="fab fa-node-js"></i></div>
+                    <div class="orbit-icon" style="--delay: 2.5;"><i class="fas fa-database"></i></div>
+                </div>
+                <div class="orbit orbit-3">
+                    <div class="orbit-icon" style="--delay: 0.3;"><i class="fab fa-git-alt"></i></div>
+                    <div class="orbit-icon" style="--delay: 1.3;"><i class="fab fa-docker"></i></div>
+                    <div class="orbit-icon" style="--delay: 2.3;"><i class="fab fa-aws"></i></div>
+                </div>
+                <div class="center-icon">
+                    <span>&lt;/&gt;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if featured_projects %}
+<!-- Featured Projects Section -->
+<section class="section projects">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Some of my recent work</p>
+        </div>
+        <div class="projects-grid">
+            {% for project in featured_projects %}
+            <div class="project-card">
+                <div class="project-image">
+                    {% if 'Spring' in project.technologies or 'Java' in project.technologies %}
+                        <i class="fab fa-java"></i>
+                    {% elif 'Django' in project.technologies or 'Python' in project.technologies %}
+                        <i class="fab fa-python"></i>
+                    {% elif 'React' in project.technologies %}
+                        <i class="fab fa-react"></i>
+                    {% elif 'CNN' in project.technologies or 'ML' in project.technologies %}
+                        <i class="fas fa-brain"></i>
+                    {% else %}
+                        <i class="fas fa-code"></i>
+                    {% endif %}
+                </div>
+                <div class="project-content">
+                    <h3>{{ project.title }}</h3>
+                    <p class="tech-stack">{{ project.technologies }}</p>
+                    <p>{{ project.short_description }}</p>
+                    <div class="project-links">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-small"><i class="fab fa-github"></i> Code</a>
+                        {% endif %}
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn btn-small btn-outline"><i class="fas fa-external-link-alt"></i> Live</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{% url 'projects' %}" class="btn btn-primary">View All Projects</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<style>
+/* Tech Sphere Styles */
+.tech-sphere {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sphere-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 0.4; }
+}
+
+.orbit {
+    position: absolute;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.orbit-1 {
+    width: 200px;
+    height: 200px;
+    animation-duration: 15s;
+}
+
+.orbit-2 {
+    width: 280px;
+    height: 280px;
+    animation-duration: 20s;
+    animation-direction: reverse;
+}
+
+.orbit-3 {
+    width: 360px;
+    height: 360px;
+    animation-duration: 25s;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.orbit-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: counter-rotate 20s linear infinite, float-icon 3s ease-in-out infinite;
+    animation-delay: calc(var(--delay) * 1s);
+}
+
+.orbit-1 .orbit-icon { animation-duration: 15s, 3s; }
+.orbit-2 .orbit-icon { animation-duration: 20s, 3.5s; }
+.orbit-3 .orbit-icon { animation-duration: 25s, 4s; }
+
+.orbit-1 .orbit-icon:nth-child(1) { top: -25px; left: calc(50% - 25px); }
+.orbit-1 .orbit-icon:nth-child(2) { bottom: -25px; left: calc(50% - 25px); }
+.orbit-1 .orbit-icon:nth-child(3) { top: calc(50% - 25px); right: -25px; }
+
+.orbit-2 .orbit-icon:nth-child(1) { top: 20px; right: 20px; }
+.orbit-2 .orbit-icon:nth-child(2) { bottom: 20px; left: 20px; }
+.orbit-2 .orbit-icon:nth-child(3) { top: calc(50% - 25px); left: -25px; }
+
+.orbit-3 .orbit-icon:nth-child(1) { top: -25px; left: calc(50% - 25px); }
+.orbit-3 .orbit-icon:nth-child(2) { bottom: 40px; right: 20px; }
+.orbit-3 .orbit-icon:nth-child(3) { bottom: 40px; left: 20px; }
+
+@keyframes counter-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+@keyframes float-icon {
+    0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
+    50% { box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4); }
+}
+
+.center-icon {
+    position: relative;
+    z-index: 10;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+    animation: pulse-center 2s ease-in-out infinite;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes pulse-center {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Hover Effects */
+.tech-sphere:hover .orbit {
+    animation-play-state: paused;
+}
+
+.tech-sphere:hover .orbit-icon {
+    animation-play-state: paused;
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .tech-sphere {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .orbit-1 { width: 160px; height: 160px; }
+    .orbit-2 { width: 230px; height: 230px; }
+    .orbit-3 { width: 300px; height: 300px; }
+    
+    .orbit-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        border-radius: 12px;
+    }
+    
+    .center-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-sphere {
+        width: 280px;
+        height: 280px;
+        margin: 40px auto;
+    }
+    
+    .orbit-1 { width: 140px; height: 140px; }
+    .orbit-2 { width: 200px; height: 200px; }
+    .orbit-3 { width: 260px; height: 260px; }
+    
+    .orbit-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .center-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+    
+    .hero-roles {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .role-divider {
+        display: none;
+    }
+}
+
+/* Hero Text Animations */
+.greeting {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 5px;
+}
+
+.hero-title .name {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.hero-tagline {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.typewriter {
+    display: inline-block;
+    border-right: 3px solid rgba(255, 255, 255, 0.8);
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: rgba(255, 255, 255, 0.8); }
+}
+
+.hero-roles {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.role-badge {
+    backdrop-filter: blur(10px);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
+}
+
+.role-developer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.role-fullstack {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    box-shadow: 0 5px 20px rgba(56, 239, 125, 0.3);
+}
+
+.role-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.role-divider {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 550px;
+    margin-bottom: 30px;
+}
+
+/* Fade Up Animation */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .hero-title .name {
+        font-size: 2.8rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .greeting {
+        font-size: 1.2rem;
+    }
+    
+    .hero-title .name {
+        font-size: 2rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+    }
+    
+    .role-badge {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+}
+
+/* Fix hero-image to contain new sphere */
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+{% endblock %}
